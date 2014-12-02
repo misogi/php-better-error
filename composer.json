@@ -1,0 +1,13 @@
+{
+    "name": "misogi/php-better-error",
+    "description": "Reporting better information of PHP Exception",
+    "authors": [
+        {
+            "name": "misogi",
+            "email": "dev@misogi.info"
+        }
+    ],
+    "require": {
+        "php": "~5.6.0"
+    }
+}
