@@ -10,6 +10,4 @@ class BetterErrorTest extends \PHPUnit_Framework_TestCase {
         $out = $b->pp($e);
         $this->AssertTrue(is_string($out));
     }
-
 }
- 

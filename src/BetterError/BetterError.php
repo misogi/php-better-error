@@ -7,13 +7,13 @@ class BetterError
 {
     public function pp(\Exception $e)
     {
+        $traces = [];
         foreach ($e->getTrace() as $t) {
-            $trace = new Trace();
-            $trace->line = empty($t['file']) ? '' : $t['file'];
+            $traces[] = new Trace($t);
         }
 
         ob_start();
-        require 'test.phtml';
+        require 'html.phtml';
 
         return ob_get_clean();
     }

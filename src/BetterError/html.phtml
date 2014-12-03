@@ -1,0 +1,7 @@
+<html>
+<?php foreach($traces as $trace): ?>
+    <?php /** @var \BetterError\Trace $trace */ ?>
+    <?= $trace->getMethod() ?><br />
+    <?= $trace->file ?>:<?= $trace->line ?><br />
+<?php endforeach; ?>
+</html>
