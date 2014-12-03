@@ -2,16 +2,19 @@
 
 namespace BetterError;
 
+
 class BetterError
 {
     public function pp(\Exception $e)
     {
-        $output = "";
-        foreach ($e->getTrace() as $trace) {
-            $fileName = empty($trace['file']) ? '' : $trace['file'];
-            $output .= $fileName;
+        foreach ($e->getTrace() as $t) {
+            $trace = new Trace();
+            $trace->line = empty($t['file']) ? '' : $t['file'];
         }
 
-        return $output;
+        ob_start();
+        require 'test.phtml';
+
+        return ob_get_clean();
     }
 }
