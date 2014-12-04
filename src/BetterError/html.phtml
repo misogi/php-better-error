@@ -1,4 +1,3 @@
-<html>
 <?php foreach($traces as $trace): ?>
     <?php /** @var \BetterError\Trace $trace */ ?>
     <?= $trace->getMethod() ?><br />
@@ -7,4 +6,3 @@
         <?= $arg->type ?>,
     <?php endforeach; ?>
 <?php endforeach; ?>
-</html>

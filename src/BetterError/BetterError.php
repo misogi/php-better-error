@@ -23,6 +23,12 @@ class BetterError
             return self::printCli($e);
         }
 
+        $traces = [];
+        foreach($e->getTrace() as $trace) {
+            $traceObj = new Trace($trace);
+            $traces[] = $traceObj;
+        }
+
         ob_start();
         require 'html.phtml';
 
