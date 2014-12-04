@@ -5,15 +5,22 @@ namespace BetterError;
 
 class BetterError
 {
-    public function pp(\Exception $e)
+    public static function register()
     {
-        $traces = [];
-        foreach ($e->getTrace() as $t) {
-            $traces[] = new Trace($t);
-        }
+        set_error_handler(['\BetterError\BetterError', 'errorHandler']);
+    }
 
+    public static function errorHandler($severity, $message, $errFile, $lineNo, $errContext)
+    {
+        $message = self::errorType($severity) . "\n" . $message;
+        $err = new \ErrorException($message, 0, $severity, $errFile, $lineNo);
+        echo self::pp($err);
+    }
+
+    public static function pp(\Exception $e)
+    {
         if (php_sapi_name() == 'cli') {
-            return $this->printCli($traces);
+            return self::printCli($e);
         }
 
         ob_start();
@@ -23,16 +30,34 @@ class BetterError
     }
 
     /**
-     * @param Trace[] $traces
+     * @param \Exception $e
      * @return string
      */
-    private function printCli(array $traces)
+    private static function printCli(\Exception $e)
     {
         $cliOutput = '';
-        foreach($traces as $trace) {
-            $cliOutput .= $trace->cliString();
+        $cliOutput .= BashColor::Red . $e->getMessage() . BashColor::Reset . "\n";
+        foreach($e->getTrace() as $trace) {
+            $traceObj = new Trace($trace);
+            $cliOutput .= $traceObj->cliString();
         }
 
         return $cliOutput;
+    }
+
+    private static function errorType($type)
+    {
+        switch ($type) {
+            case E_ERROR: // 1 //
+                return 'Error';
+            case E_WARNING: // 2 //
+                return 'Warning';
+            case E_PARSE: // 4 //
+                return 'Parse Error';
+            case E_NOTICE: // 8 //
+                return 'Notice';
+            default:
+                return 'Other Error';
+        }
     }
 }

@@ -6,7 +6,7 @@
         backupStaticAttributes      = "false"
         bootstrap                   = "test/bootstrap.php"
         colors                      = "true"
-        convertErrorsToExceptions   = "false"
+        convertErrorsToExceptions   = "true"
         convertNoticesToExceptions  = "false"
         convertWarningsToExceptions = "false"
         strict = "true"

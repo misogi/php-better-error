@@ -56,7 +56,13 @@ class Trace
             $color = BashColor::LightGray;
         }
 
-        $cliString = $color . $this->strippedFile() . ":{$this->line} " . $this->getMethod() . BashColor::Reset . "\n";
+        if (empty($this->file) && empty($this->line)) {
+            $file = '';
+        } else {
+            $file = $this->strippedFile() . ":{$this->line} ";
+        }
+
+        $cliString = $color . $file . $this->getMethod() . BashColor::Reset . "\n";
 
         return $cliString;
     }

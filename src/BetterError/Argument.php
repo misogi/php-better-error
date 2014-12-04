@@ -33,39 +33,43 @@ class Argument
      */
     public function printArg()
     {
-        if (is_object($this->value)) {
-            if (method_exists($this->value, '__toString')) {
-                // if object implement __toString()
-                return get_class($this->value) . ":{$this->value}";
-            }
-
-            return get_class($this->value);
-        }
-
         if ($this->type === 'array') {
             return $this->printArray($this->value);
         }
 
-        return "{$this->value}";
+        return $this->printValue($this->value);
     }
 
     private function printArray(array $arr)
     {
         $printValues = [];
         foreach ($arr as $val) {
-            if (is_object($val)) {
-                $printVal = get_class($val);
-            } elseif (is_array($val)) {
-                $printVal = '[]';
-            } elseif (is_null($val)) {
-                $printVal = 'null';
-            } else {
-                $printVal = $val;
-            }
-
-            $printValues[] = $printVal;
+            $printValues[] = $this->printValue($val);
         }
 
-        return join(', ', $printValues);
+        return '[' . join(', ', $printValues) . ']';
+    }
+
+    /**
+     * @param $val
+     * @return string
+     */
+    private function printValue($val)
+    {
+        if (is_object($val)) {
+            $printVal = get_class($val);
+        } elseif (is_array($val)) {
+            $printVal = '[]';
+        } elseif(is_string($val)) {
+            return '"' . $val . '"';
+        } elseif (is_null($val)) {
+            $printVal = 'null';
+        } elseif (is_bool($val)) {
+            $printVal = $val ? 'true' : 'false';
+        } else {
+            $printVal = "$val";
+        }
+
+        return $printVal;
     }
 }
