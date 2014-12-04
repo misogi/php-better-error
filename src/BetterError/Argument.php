@@ -6,7 +6,7 @@ class Argument
 {
     /** @var  string */
     public $type;
-
+    /** @var  */
     public $value;
 
     public function __construct($arg)

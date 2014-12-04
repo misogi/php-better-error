@@ -14,6 +14,9 @@ class Trace
     public $type;
     /** @var  string */
     public $class;
+    /** @var Argument[] */
+    public $args = [];
+
 
     public function __construct(array $t)
     {
@@ -30,8 +33,29 @@ class Trace
         }
     }
 
+    public function strippedFile()
+    {
+        $fileName = $this->file;
+
+        $fileName = str_replace('phar://', '', $fileName);
+        $pwd = getcwd();
+        $fileName = str_replace($pwd, '', $fileName);
+
+        return $fileName;
+    }
+
     public function getMethod()
     {
-        return "{$this->class}{$this->type}{$this->function}()";
+        return "{$this->class}{$this->type}{$this->function}({$this->printArgs()})";
+    }
+
+    public function printArgs()
+    {
+        $args = [];
+        foreach ($this->args as $arg) {
+            $args[] = $arg->type;
+        }
+
+        return join(", ", $args);
     }
 } 
