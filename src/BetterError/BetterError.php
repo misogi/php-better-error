@@ -30,7 +30,7 @@ class BetterError
     {
         $cliOutput = '';
         foreach($traces as $trace) {
-            $cliOutput .= $trace->strippedFile() . ":{$trace->line} " . $trace->getMethod() . "\n";
+            $cliOutput .= $trace->cliString();
         }
 
         return $cliOutput;

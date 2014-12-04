@@ -49,13 +49,27 @@ class Trace
         return "{$this->class}{$this->type}{$this->function}({$this->printArgs()})";
     }
 
+    public function cliString()
+    {
+        $color = '';
+        if (strpos($this->class, 'PHPUnit_') !== false) {
+            $color = BashColor::LightGray;
+        }
+
+        $cliString = $color . $this->strippedFile() . ":{$this->line} " . $this->getMethod() . BashColor::Reset . "\n";
+
+        return $cliString;
+    }
+
     public function printArgs()
     {
         $args = [];
         foreach ($this->args as $arg) {
-            $args[] = $arg->type;
+            $args[] = $arg->printArg();
         }
 
-        return join(", ", $args);
+        $output = join(", ", $args);
+
+        return $output;
     }
 } 

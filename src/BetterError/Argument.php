@@ -27,4 +27,45 @@ class Argument
 
         $this->value = $arg;
     }
+
+    /**
+     * @return string
+     */
+    public function printArg()
+    {
+        if (is_object($this->value)) {
+            if (method_exists($this->value, '__toString')) {
+                // if object implement __toString()
+                return get_class($this->value) . ":{$this->value}";
+            }
+
+            return get_class($this->value);
+        }
+
+        if ($this->type === 'array') {
+            return $this->printArray($this->value);
+        }
+
+        return "{$this->value}";
+    }
+
+    private function printArray(array $arr)
+    {
+        $printValues = [];
+        foreach ($arr as $val) {
+            if (is_object($val)) {
+                $printVal = get_class($val);
+            } elseif (is_array($val)) {
+                $printVal = '[]';
+            } elseif (is_null($val)) {
+                $printVal = 'null';
+            } else {
+                $printVal = $val;
+            }
+
+            $printValues[] = $printVal;
+        }
+
+        return join(', ', $printValues);
+    }
 }
