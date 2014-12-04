@@ -13,16 +13,8 @@ class Argument
     {
         if (is_object($arg)) {
             $this->type = get_class($arg);
-        } elseif (is_array($arg)) {
-            $this->type = 'array';
-        } elseif (is_string($arg)) {
-            $this->type = 'string';
-        } elseif (is_float($arg)) {
-            $this->type = 'float';
-        } elseif (is_int($arg)) {
-            $this->type = 'int';
-        } elseif (is_bool($arg)) {
-            $this->type = 'bool';
+        } else {
+            $this->type = gettype($arg);
         }
 
         $this->value = $arg;
