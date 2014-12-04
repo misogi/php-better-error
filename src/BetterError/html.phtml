@@ -1,8 +1,29 @@
-<?php foreach($traces as $trace): ?>
-    <?php /** @var \BetterError\Trace $trace */ ?>
-    <?= $trace->getMethod() ?><br />
-    <?= $trace->file ?>:<?= $trace->line ?><br />
-    <?php foreach($trace->args as $arg): ?>
-        <?= $arg->type ?>,
-    <?php endforeach; ?>
-<?php endforeach; ?>
+
+<?php
+
+$e = $myException;
+?>
+<?php while($e) : ?>
+    <div class="page-header">
+        <h1>
+            <?= $e->message ?>
+        </h1>
+    </div>
+    <table class="table">
+        <?php foreach($e->traces as $trace): ?>
+            <?php /** @var \BetterError\Trace $trace */ ?>
+            <tr>
+                <td>
+                    <?= $trace->getMethod() ?><br />
+                    <?= $trace->strippedFile() ?>
+                    <span class="label label-default">
+                    <?= $trace->line ?>
+                    </span>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+<?php
+$e = $e->next;
+endwhile;
+?>

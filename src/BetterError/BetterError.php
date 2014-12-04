@@ -19,14 +19,9 @@ class BetterError
 
     public static function pp(\Exception $e)
     {
+        $myException = new Exception($e);
         if (php_sapi_name() == 'cli') {
-            return self::printCli($e);
-        }
-
-        $traces = [];
-        foreach($e->getTrace() as $trace) {
-            $traceObj = new Trace($trace);
-            $traces[] = $traceObj;
+            return self::printCli($myException);
         }
 
         ob_start();
@@ -36,16 +31,15 @@ class BetterError
     }
 
     /**
-     * @param \Exception $e
+     * @param Exception $e
      * @return string
      */
-    private static function printCli(\Exception $e)
+    private static function printCli(Exception $e)
     {
         $cliOutput = '';
-        $cliOutput .= BashColor::Red . $e->getMessage() . BashColor::Reset . "\n";
-        foreach($e->getTrace() as $trace) {
-            $traceObj = new Trace($trace);
-            $cliOutput .= $traceObj->cliString();
+        $cliOutput .= BashColor::Red . $e->message . BashColor::Reset . "\n";
+        foreach($e->traces as $trace) {
+            $cliOutput .= $trace->cliString();
         }
 
         return $cliOutput;
