@@ -14,10 +14,6 @@ class BetterError
 
         if (php_sapi_name() == 'cli') {
             return $this->printCli($traces);
-        } else {
-            //CLI版phpでない
-            echo '<h1>実行結果</h1>';
-            echo '<p>HTMLで返そうかな</p>';
         }
 
         ob_start();
