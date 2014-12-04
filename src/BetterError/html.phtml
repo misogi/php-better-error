@@ -3,5 +3,8 @@
     <?php /** @var \BetterError\Trace $trace */ ?>
     <?= $trace->getMethod() ?><br />
     <?= $trace->file ?>:<?= $trace->line ?><br />
+    <?php foreach($trace->args as $arg): ?>
+        <?= $arg->type ?>,
+    <?php endforeach; ?>
 <?php endforeach; ?>
 </html>

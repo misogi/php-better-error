@@ -24,6 +24,10 @@ class Trace
                 $this->$property = $t[$property];
             }
         }
+
+        foreach ($t['args'] as $arg) {
+            $this->args[] = new Argument($arg);
+        }
     }
 
     public function getMethod()
