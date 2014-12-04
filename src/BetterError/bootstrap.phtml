@@ -1,4 +1,8 @@
-
+<!--  template for twitter bootstrap -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/railscasts.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/languages/php.min.js"></script>
+<script type="text/javascript">hljs.initHighlightingOnLoad();</script>
 <?php
 
 $e = $myException;
@@ -9,6 +13,12 @@ $e = $myException;
             <?= $e->className ?>:
             <?= $e->message ?>
         </h2>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading"><?= $e->fileName ?></div>
+        <div class="panel-body">
+            <pre><code class="php"><?= $e->source ?></code></pre>
+        </div>
     </div>
     <table class="table">
         <?php foreach($e->traces as $trace): ?>

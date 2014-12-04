@@ -31,7 +31,7 @@ class BetterError
         }
 
         ob_start();
-        require 'html.phtml';
+        require 'bootstrap.phtml';
 
         return ob_get_clean();
     }
