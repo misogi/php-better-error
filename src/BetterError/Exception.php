@@ -6,11 +6,13 @@ class Exception
 {
     public $message;
     public $traces = [];
+    public $className;
     public $next;
 
     public function __construct(\Exception $e)
     {
         $this->message = $e->getMessage();
+        $this->className = get_class($e);
 
         foreach ($e->getTrace() as $trace) {
             $traceObj = new Trace($trace);

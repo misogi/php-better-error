@@ -22,7 +22,7 @@ class User
 {
     function auth($a, $b, $c)
     {
-        echo BetterError::pp(new \Exception("外で例外", 2, new \RuntimeException('中で例外')));
+        throw new \Exception("外で例外", 2, new \RuntimeException('中で例外'));
     }
 
     function login()

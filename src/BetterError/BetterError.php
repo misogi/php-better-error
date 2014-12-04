@@ -8,6 +8,7 @@ class BetterError
     public static function register()
     {
         set_error_handler(['\BetterError\BetterError', 'errorHandler']);
+        set_exception_handler(['\BetterError\BetterError', 'exceptionHandler']);
     }
 
     public static function errorHandler($severity, $message, $errFile, $lineNo, $errContext)
@@ -15,6 +16,11 @@ class BetterError
         $message = self::errorType($severity) . "\n" . $message;
         $err = new \ErrorException($message, 0, $severity, $errFile, $lineNo);
         echo self::pp($err);
+    }
+
+    public static function exceptionHandler(\Exception $ex)
+    {
+        echo self::pp($ex);
     }
 
     public static function pp(\Exception $e)
