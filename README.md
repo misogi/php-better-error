@@ -9,6 +9,7 @@ php-better-error
 
 Reporting pretty error for PHP.
 
+https://packagist.org/packages/misogi/php-better-error
 
 instration
 ==========
