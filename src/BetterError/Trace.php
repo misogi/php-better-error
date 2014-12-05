@@ -53,7 +53,7 @@ class Trace
     {
         $color = '';
         if (strpos($this->class, 'PHPUnit_') !== false) {
-            $color = BashColor::LightGray;
+            $color = BashColor::lightGray;
         }
 
         if (empty($this->file) && empty($this->line)) {
@@ -62,7 +62,7 @@ class Trace
             $file = $this->strippedFile() . ":{$this->line} ";
         }
 
-        $cliString = $color . $file . $this->getMethod() . BashColor::Reset . "\n";
+        $cliString = $color . $file . $this->getMethod() . BashColor::reset . "\n";
 
         return $cliString;
     }

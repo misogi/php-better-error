@@ -9,6 +9,10 @@ class Argument
     /** @var  */
     public $value;
 
+    /**
+     * constructor
+     * @param $arg
+     */
     public function __construct($arg)
     {
         if (is_object($arg)) {
@@ -32,6 +36,11 @@ class Argument
         return $this->printValue($this->value);
     }
 
+    /**
+     * print array that is in arguments
+     * @param array $arr
+     * @return string
+     */
     private function printArray(array $arr)
     {
         $printValues = [];
@@ -51,7 +60,7 @@ class Argument
         if (is_object($val)) {
             $printVal = get_class($val);
         } elseif (is_array($val)) {
-            $printVal = '[]';
+            $printVal = '[...]';
         } elseif(is_string($val)) {
             return '"' . $val . '"';
         } elseif (is_null($val)) {

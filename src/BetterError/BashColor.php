@@ -4,10 +4,10 @@ namespace BetterError;
 
 class BashColor 
 {
-    const Red = "\033[31m";
-    const Green = "\033[32m";
-    const Yellow = "\033[33m";
-    const Blue = "\033[34m";
-    const LightGray = "\033[90m";
-    const Reset = "\033[39m";
+    const red = "\033[31m";
+    const green = "\033[32m";
+    const yellow = "\033[33m";
+    const blue = "\033[34m";
+    const lightGray = "\033[90m";
+    const reset = "\033[39m";
 } 

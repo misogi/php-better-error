@@ -1,4 +1,5 @@
 /build/
 /vendor/
+/report/
 .idea/
 composer.lock

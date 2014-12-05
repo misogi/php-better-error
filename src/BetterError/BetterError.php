@@ -5,45 +5,77 @@ namespace BetterError;
 
 class BetterError
 {
+    /**
+     * register handlers
+     */
     public static function register()
     {
         set_error_handler(['\BetterError\BetterError', 'errorHandler']);
         set_exception_handler(['\BetterError\BetterError', 'exceptionHandler']);
     }
 
+    /**
+     * handler for PHP Error
+     * @param $severity
+     * @param $message
+     * @param $errFile
+     * @param $lineNo
+     * @param $errContext
+     */
     public static function errorHandler($severity, $message, $errFile, $lineNo, $errContext)
     {
         $message = self::errorType($severity) . "\n" . $message;
         $err = new \ErrorException($message, 0, $severity, $errFile, $lineNo);
-        echo self::pp($err);
+        echo self::dump($err);
     }
 
+    /**
+     * Handler for uncaught Exception
+     * @param \Exception $ex
+     */
     public static function exceptionHandler(\Exception $ex)
     {
-        echo self::pp($ex);
+        echo self::dump($ex);
     }
 
-    public static function pp(\Exception $e)
+    /**
+     * dump formatted Exception
+     * @param \Exception $e
+     * @return string
+     */
+    public static function dump(\Exception $e)
     {
         $myException = new Exception($e);
         if (php_sapi_name() == 'cli') {
             return self::printCli($myException);
         }
 
+        return self::printHtml($myException);
+    }
+
+    /**
+     * dump Html
+     * @param Exception $myException
+     * @param string $template
+     * @return string
+     */
+    public static function printHtml(Exception $myException, $template = 'bootstrap')
+    {
         ob_start();
-        require 'bootstrap.phtml';
+        require $template . '.phtml';
 
         return ob_get_clean();
     }
 
     /**
+     * dump string for CLI
      * @param Exception $e
      * @return string
      */
     private static function printCli(Exception $e)
     {
         $cliOutput = '';
-        $cliOutput .= BashColor::Red . $e->message . BashColor::Reset . "\n";
+        $cliOutput .= BashColor::red . $e->message . BashColor::reset . "\n";
         foreach($e->traces as $trace) {
             $cliOutput .= $trace->cliString();
         }
