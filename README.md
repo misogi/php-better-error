@@ -24,7 +24,7 @@ Usage
 
 register error handler
 
-```
+```php
 // into your bootstrap script
 \BetterError\BetterError::register()
 ```
@@ -41,8 +41,13 @@ Todo
 ====
 
 - User Template
--- (Default, displaying uses [Twitter Bootstrap](http://getbootstrap.com/) for styling)
+  - (Default, displaying uses [Twitter Bootstrap](http://getbootstrap.com/) for styling)
 
+- config file
+  - json? yaml?
+
+- Stack trace highliting
+  - can configure uses namespace
 
 Author
 ======

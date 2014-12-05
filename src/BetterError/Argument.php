@@ -62,7 +62,7 @@ class Argument
         } elseif (is_array($val)) {
             $printVal = '[...]';
         } elseif(is_string($val)) {
-            return '"' . $val . '"';
+            return '"' . mb_strimwidth($val, 0, 10, '...') . '"';
         } elseif (is_null($val)) {
             $printVal = 'null';
         } elseif (is_bool($val)) {
